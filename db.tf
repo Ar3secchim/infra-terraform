@@ -1,7 +1,7 @@
 # DB SUBNET GROUP
 resource "aws_db_subnet_group" "db_subnet_group" {
   name       = "db-subnet-group"
-  subnet_ids = [aws_subnet.subnet-database-a, aws_instance.ec2-zona-b, aws_instance.ec2-zona-c]
+  subnet_ids = [aws_subnet.subnet-database-a.id, aws_instance.ec2-zona-b.id, aws_instance.ec2-zona-c.id]
 
   tags = {
     Name = "db-subnet-group"

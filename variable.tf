@@ -57,17 +57,4 @@ variable "INSTANCE_TYPE_EC2" {
 variable "AWS_REGION" {
   description = "AWS region"
   type        = string
-  default     = "us-east-1"
-}
-
-variable "S3_BUCKET_NAME" {
-  description = "S3 bucket name for Terraform state"
-  type        = string
-  default     = "tf-s3-bucket-1234567890"
-}
-
-variable "S3_KEY" {
-  description = "S3 key for Terraform state"
-  type        = string
-  default     = "state/terraform.tfstate"
 }
