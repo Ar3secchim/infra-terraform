@@ -6,11 +6,17 @@ terraform {
       version = "~> 5.0"
     }
   }
+
+  backend "s3" {
+    bucket = var.S3_BUCKET_NAME
+    key    = var.S3_KEY
+    region = var.AWS_REGION
+  }
 }
 
 #configure the AWS provider
 provider "aws" {
-  region = "us-east-1"
+  region = var.AWS_REGION
   default_tags {
     tags = {
       environment = "dev"
@@ -19,3 +25,4 @@ provider "aws" {
     }
   }
 }
+
