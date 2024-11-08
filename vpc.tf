@@ -1,6 +1,6 @@
 # Description: This file contains the configuration of the VPC, subnets, internet gateway, nat gateway and route table.
 resource "aws_vpc" "main" {
-  cidr_block = var.VPC-CIDR
+  cidr_block = var.VPC_CIDR
 
   tags = {
     Name = "main-vpc"
@@ -159,8 +159,8 @@ resource "aws_subnet" "subnet-private-a" {
 # subnet privada-b
 resource "aws_subnet" "subnet-private-b" {
   vpc_id            = aws_vpc.main.id
-  cidr_block        = "10.0.6.0/24"
-  availability_zone = "us-east-1b"
+  cidr_block        = var.SUBNET_CIDR_PRIVATE_B
+  availability_zone = var.AVAILABILITY_ZONE_B
 
   tags = {
     Name = "subnet-privada-b"
@@ -172,8 +172,8 @@ resource "aws_subnet" "subnet-private-b" {
 # subnet privada-c
 resource "aws_subnet" "subnet-private-c" {
   vpc_id            = aws_vpc.main.id
-  cidr_block        = "10.0.7.0/24"
-  availability_zone = "us-east-1c"
+  cidr_block        = var.SUBNET_CIDR_PRIVATE_C
+  availability_zone = var.AVAILABILITY_ZONE_C
 
   tags = {
     Name = "subnet-privada-c"
@@ -193,7 +193,7 @@ resource "aws_route_table" "route-table-private-a" {
   }
 
   route {
-    cidr_block = var.VPC-CIDR
+    cidr_block = var.VPC_CIDR
     gateway_id = "local"
   }
 
@@ -212,7 +212,7 @@ resource "aws_route_table" "route-table-private-b" {
   }
 
   route {
-    cidr_block = var.VPC-CIDR
+    cidr_block = var.VPC_CIDR
     gateway_id = "local"
   }
 
@@ -231,7 +231,7 @@ resource "aws_route_table" "route-table-private-c" {
   }
 
   route {
-    cidr_block = var.VPC-CIDR
+    cidr_block = var.VPC_CIDR
     gateway_id = "local"
   }
 
@@ -303,7 +303,7 @@ resource "aws_subnet" "subnet-database-c" {
 resource "aws_route_table" "route-table-database" {
   vpc_id = aws_vpc.main.id
   route {
-    cidr_block = var.VPC-CIDR
+    cidr_block = var.VPC_CIDR
     gateway_id = "local"
   }
 
