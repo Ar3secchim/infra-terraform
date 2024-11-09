@@ -1,41 +1,23 @@
-# aws_instance ec2 zona a
-resource "aws_instance" "ec2-zona-a" {
-  ami               = "ami-063d43db0594b521b"
-  instance_type     = var.INSTANCE_TYPE_EC2
-  subnet_id         = aws_subnet.subnet-private-a.id
-  availability_zone = var.AVAILABILITY_ZONE_A
-
-  vpc_security_group_ids = [aws_security_group.allow_http.id]
-
-  tags = {
-    Name = "ec2-zona-a"
+data "aws_subnets" "subnets" {
+  filter {
+    name   = "tag:Name"
+    values = ["subnet-private-*"]
   }
 }
 
-# aws_instance ec2 zona b
-resource "aws_instance" "ec2-zona-b" {
+# aws_instance ec2 
+resource "aws_instance" "ec2-instance" {
+  for_each = toset(data.aws_subnets.subnets.ids)
+
   ami               = "ami-063d43db0594b521b"
   instance_type     = var.INSTANCE_TYPE_EC2
-  subnet_id         = aws_subnet.subnet-private-b.id
-  availability_zone = var.AVAILABILITY_ZONE_B
+  subnet_id         = each.value
+  availability_zone = each.value.availability_zone
 
   vpc_security_group_ids = [aws_security_group.allow_http.id]
 
+  depends_on = [aws_route_table.route-public]
   tags = {
-    Name = "ec2-zona-b"
-  }
-}
-
-# aws_instance ec2 zona c
-resource "aws_instance" "ec2-zona-c" {
-  ami               = "ami-063d43db0594b521b"
-  instance_type     = var.INSTANCE_TYPE_EC2
-  subnet_id         = aws_subnet.subnet-private-c.id
-  availability_zone = var.AVAILABILITY_ZONE_C
-
-  vpc_security_group_ids = [aws_security_group.allow_http.id]
-
-  tags = {
-    Name = "ec2-zona-c"
+    Name = "ExampleInstance-${each.key}"
   }
 }
