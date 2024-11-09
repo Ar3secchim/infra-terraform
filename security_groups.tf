@@ -28,7 +28,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_http_rule" {
 resource "aws_vpc_security_group_egress_rule" "allow_all_egress" {
   security_group_id = aws_security_group.allow_http.id
 
-  cidr_ipv4   = "0.0.0.0/0"
+  cidr_ipv4   = var.INTERNET_GATEWAY
   ip_protocol = "-1"
   to_port     = 0
   from_port   = 0
@@ -37,3 +37,26 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_egress" {
     Name = "allow_all_egress"
   }
 }
+
+# security group for load balancer
+resource "aws_security_group" "allow_lb" {
+  name        = "allow_lb"
+  description = "Allow trafiic http "
+  vpc_id      = aws_vpc.main.id
+
+  tags = {
+    Name = "allow_lb"
+  }
+}
+
+# security group for load balancer ingress
+resource "aws_security_group_rule" "load_balancer_allow_http" {
+  cidr_blocks = [aws_vpc.main.cidr_block]
+
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "-1"
+  security_group_id = aws_security_group.allow_lb.id
+}
+
