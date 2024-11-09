@@ -30,8 +30,6 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_egress" {
 
   cidr_ipv4   = var.INTERNET_GATEWAY
   ip_protocol = "-1"
-  to_port     = 0
-  from_port   = 0
 
   tags = {
     Name = "allow_all_egress"
@@ -59,4 +57,3 @@ resource "aws_security_group_rule" "load_balancer_allow_http" {
   protocol          = "-1"
   security_group_id = aws_security_group.allow_lb.id
 }
-
