@@ -30,17 +30,9 @@ resource "aws_lb" "lb_instance" {
 
   security_groups = [aws_security_group.allow_lb.id]
 
-  access_logs {
-    bucket  = aws_s3_bucket.s3_bucket.id
-    prefix  = "lb"
-    enabled = true
-  }
-
   depends_on = [aws_route_table.route-public]
 
   tags = {
     Name = "load-balancer"
   }
 }
-
-
