@@ -17,4 +17,3 @@ output "subnet_id_public_c" {
   value       = aws_subnet.public-c.id
   description = "value of the public-c subnet id"
 }
-

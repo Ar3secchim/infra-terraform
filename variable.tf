@@ -54,7 +54,13 @@ variable "INSTANCE_TYPE_EC2" {
   type        = string
 }
 
+variable "AWS_S3_BUCKET_NAME" {
+  description = "Name of the S3 bucket"
+  type        = string
+}
+
 variable "AWS_REGION" {
   description = "AWS region"
   type        = string
 }
+
