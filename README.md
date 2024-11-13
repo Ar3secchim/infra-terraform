@@ -84,3 +84,6 @@ Para destruir os recursos criados pelo Terraform, execute:
 ```bash
 terraform destroy
 ```
+## Diagrama
+![Diagrama em branco](https://github.com/user-attachments/assets/ca8c8269-a439-4503-ad25-9bfd5d10e75e)
+
