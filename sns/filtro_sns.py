@@ -52,7 +52,7 @@ msg_email = client.publish(
     Message='Esta é uma mensagem de teste para o filtro de email.',
     MessageAttributes={
         'eventType': {
-
+            'DataType': 'String',
             'StringValue': 'email'
         }
     }
